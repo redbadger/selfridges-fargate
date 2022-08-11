@@ -5,7 +5,7 @@ import * as ecs from "aws-cdk-lib/aws-ecs";
 import * as ecs_patterns from "aws-cdk-lib/aws-ecs-patterns";
 import * as path from "path";
 
-export class CdkPartStack extends Stack {
+export class CdkStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
@@ -26,7 +26,8 @@ export class CdkPartStack extends Stack {
         cpu: 512,
         memoryLimitMiB: 1024,
         taskImageOptions: {
-          image: ecs.ContainerImage.fromRegistry("amazon/amazon-ecs-sample"),
+          image: ecs.ContainerImage.fromAsset(path.dirname("../../")),
+          containerPort: 3000,
         },
         publicLoadBalancer: true, // Default is false,
         assignPublicIp: true,
