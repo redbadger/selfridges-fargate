@@ -43,10 +43,6 @@ export const Config = {
     {
       displayName: "Home",
       path: "/",
-    },
-    {
-      displayName: "Blog",
-      path: "/blog",
-    },
+    }
   ],
 };

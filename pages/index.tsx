@@ -1,60 +1,61 @@
-import type { NextPage } from "next";
-import Head from "next/head";
-import Image from "next/image";
-import styles from "../styles/Home.module.css";
+
 import ContentfulApi from "../utils/ContentfulApi";
-import Config from "../utils/ContentfulApi";
-import PageMeta from "../components/PageMeta";
 import MainLayout from "../layouts/main";
 import ContentWrapper from "../components/ContentWrapper";
-import PageContentWrapper from "../components/PageContentWrapper";
-// import RichTextPageContent from "../components/RichTextPageContent";
 import RecentPostList from "../components/RecentPostList";
+import PageContentWrapper from "../components/PageContentWrapper";
+import { Config } from "../utils/Config"
 
 export default function Home(props) {
-  const { pageContent, recentPosts } = props;
-
+  const { pageContent, recentPosts, paginatedBlogPosts } = props;
+  console.log(pageContent,
+    'config')
+  console.log(Config.pageMeta.home.slug)
+  console.log(paginatedBlogPosts)
   const pageTitle = pageContent ? pageContent.title : "Home";
 
   const pageDescription = pageContent
     ? pageContent.description
     : "Welcome to the Next.js Contentful blog starter";
 
-  console.log(props, "props");
-  // console.log(Config.pageMeta, "p m")
   return (
     <>
       <MainLayout>
         <ContentWrapper>
-          {/* {pageContent && pageContent.body && (
+          {pageContent ? pageContent.body &&
+            <>
+              <PageContentWrapper>
+                {pageTitle}
+              </PageContentWrapper>
+              <PageContentWrapper> {pageDescription}</PageContentWrapper>
+            </>
+            :
             <PageContentWrapper>
-    
-            {pageContent.body}
+              No page content found
             </PageContentWrapper>
-          )} */}
 
-          <RecentPostList posts={recentPosts} />
+          }
+          <RecentPostList posts={paginatedBlogPosts.posts} />
         </ContentWrapper>
       </MainLayout>
     </>
   );
 }
 
-export async function getStaticProps({ preview = false }) {
-  // const pageContent = await ContentfulApi.getPageContentBySlug(
-  //   Config.pageMeta.home.slug,
-  //   {
-  //     preview: preview,
-  //   },
-  // );
+export async function getStaticProps() {
+  const pageContent = await ContentfulApi.getPageContentBySlug(
+    Config.pageMeta.home.slug
+  );
 
-  const recentPosts = await ContentfulApi.getRecentPostList();
+  const paginatedBlogPosts = await ContentfulApi.getPaginatedBlogPosts(
+    1
+  );
+
 
   return {
     props: {
-      preview,
-      // pageContent: pageContent || null,
-      recentPosts,
+      paginatedBlogPosts,
+      pageContent: pageContent || null,
     },
   };
 }

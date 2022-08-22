@@ -1,13 +1,10 @@
-import Link from "next/link";
 import RecentPostListStyles from "../../styles/RecentPostList.module.css";
-import ButtonStyles from "../../styles/Button.module.css";
-// import PublishedDate from "../components/Post/PublishedDate";
-// import Tags from "../../components/Post/Tags";
 import ContentListStyles from "../../styles/ContentList.module.css";
-import { Config } from "../../utils/Config";
+
 
 export default function RecentPostList(props) {
   const { posts } = props;
+
   return (
     <>
       <h2 className={RecentPostListStyles.recentPostList__header}>
@@ -23,6 +20,9 @@ export default function RecentPostList(props) {
                 </h2>
                 <p>
                   {post.excerpt}
+                </p>
+                <p>
+                  {post.body.json.content[0].content[0].value}
                 </p>
               </a>
             </article>
