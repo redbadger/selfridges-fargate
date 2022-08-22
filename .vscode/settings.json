@@ -19,7 +19,5 @@
     "titleBar.inactiveForeground": "#15202b99"
   },
   "peacock.color": "#6ea4e0",
-  "cSpell.words": [
-    "Fargate"
-  ]
+  "cSpell.words": ["Fargate"]
 }
