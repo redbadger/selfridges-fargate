@@ -15,6 +15,6 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "components/SocialLinks/svgs/twitter.js", "components/SocialLinks/svgs/feed.js", "components/Header/svg/Logo.js"],
   "exclude": ["node_modules", "cdk"]
 }

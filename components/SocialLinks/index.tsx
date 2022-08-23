@@ -1,19 +1,18 @@
 import SocialLinksStyles from "../../styles/SocialLinks.module.css";
 import Twitter from "./svgs/twitter";
 import Feed from "./svgs/feed";
-import { Config } from "../../utils/Config";
 
 const socialLinksList = [
   {
     name: "Twitter",
-    url: `https://twitter.com/${Config.pageMeta.openGraph.twitterUser}`,
+    url: `https://twitter.com`,
     ariaLabel: "Follow me on Twitter",
     svg: <Twitter />,
   },
   {
     name: "RSS Feed",
     url: "feed.xml",
-    ariaLabel: `View the RSS feed of ${Config.site.domain}`,
+    ariaLabel: `View the RSS feed`,
     svg: <Feed />,
   },
 ];
