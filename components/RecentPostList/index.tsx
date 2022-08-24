@@ -3,7 +3,8 @@ import ContentListStyles from "../../styles/ContentList.module.css";
 
 
 export default function RecentPostList(props) {
-  const { posts } = props;
+  const { blogPost } = props;
+  const posts = blogPost.items
   return (
     <>
       <h2 className={RecentPostListStyles.recentPostList__header}>

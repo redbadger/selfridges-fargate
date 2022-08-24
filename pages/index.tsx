@@ -5,31 +5,25 @@ import PageContentWrapper from "../components/PageContentWrapper";
 import RecentPostList from "../components/RecentPostList";
 
 export default function Home(props) {
-
- const { pageContent } = props;
- console.log(pageContent, "config");
-
-const pageTitle = pageContent ? pageContent.title : "Home";
-
+  const { pageContent, blogPost } = props
+  const pageTitle = pageContent ? pageContent.all_page_content.items[0].title : "Home";
   const pageDescription = pageContent
-    ? pageContent.description
+    ? pageContent.all_page_content.items[0].description
     : "Welcome to the Next.js Contentful blog starter";
 
   return (
     <>
       <MainLayout>
         <ContentWrapper>
-          {pageContent ? (
-            pageContent.body && (
-              <>
-                <PageContentWrapper>{pageTitle}</PageContentWrapper>
-                {/* <PageContentWrapper> {pageDescription}</PageContentWrapper> */}
-              </>
-            )
-          ) : (
-            <PageContentWrapper>No page content found</PageContentWrapper>
-          )}
-          <RecentPostList posts={pageContent.data.all_blog_post.items} />
+          {pageContent ?
+            <>
+              <PageContentWrapper>Title: {pageTitle}</PageContentWrapper>
+              <PageContentWrapper>Description: {pageDescription}</PageContentWrapper>
+            </>
+            : (
+              <PageContentWrapper>No page content found</PageContentWrapper>
+            )}
+          <RecentPostList blogPost={blogPost.all_blog_post} />
         </ContentWrapper>
       </MainLayout>
     </>
@@ -37,17 +31,14 @@ const pageTitle = pageContent ? pageContent.title : "Home";
 }
 
 export async function getStaticProps() {
+  let pageContent = await ContentStackApi.callPageContent()
 
-  let pageContent = await ContentStackApi.callContentStack()
-  console.log(pageContent, "pageContent")
-
-  // let pageContent  = await Stack.getEntry('blog_post', "en-us");
-  // console.log(pageContent)
+  let blogPost = await ContentStackApi.callBlogPost()
 
   return {
     props: {
-      pageContent
-
+      pageContent,
+      blogPost
     },
-};
+  };
 }
